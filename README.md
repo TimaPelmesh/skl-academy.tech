@@ -1,18 +1,19 @@
 # SKL Academy
 
-Сайт IT-акадemia: [skl-academy.tech](https://skl-academy.tech)
+Сайт [skl-academy.tech](https://skl-academy.tech) — образовательная платформа с бесплатными IT-курсами.
 
 ## Структура
 
-Многостраничный статический сайт. Чистые URL: `/about/`, `/programs/`, `/contact/`.
-
 ```
-css/          — base, layout, components
-partials/     — header, footer (подключаются через JS)
-about/        — страница «О нас»
-programs/     — программы
-contact/      — контакты и форма
-assets/icons/ — SVG-иконки
+index.html          — главная
+about/index.html    — о проекте (/about/)
+courses/            — все курсы
+articles/           — статьи SKL Library
+library.html        — библиотека статей
+sandbox/            — интерактивные тренажёры
+desk/               — рабочий стол с терминалом
+styles.css          — стили главной
+courses/courses.css — стили страниц курсов
 ```
 
 ## Локальный просмотр
@@ -23,6 +24,6 @@ npx serve .
 
 ## Деплой
 
-Push в `main` → GitHub Pages публикует автоматически.
+Push в ветку `main` → GitHub Pages.
 
-Требования проекта — в локальном `REQUIREMENTS.md` (не в репозитории).
+Требования проекта — в локальном `REQUIREMENTS.md`.
