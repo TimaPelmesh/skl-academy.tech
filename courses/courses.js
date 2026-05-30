@@ -201,6 +201,7 @@
             function toggle(force) {
                 var willOpen = typeof force === 'boolean' ? force : !card.classList.contains('active');
                 card.classList.toggle('active', willOpen);
+                fab.classList.toggle('is-open', willOpen);
                 card.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
                 fab.textContent = willOpen ? '×' : 'i';
                 fab.setAttribute('aria-label', willOpen ? 'Закрыть контакты' : 'Открыть контакты');
@@ -236,19 +237,39 @@
     })();
 
     // Тема (светлая/тёмная). Цветовая схема — только фиолетовая (#4f46e5)
+    var themeKey = 'skl-course-theme';
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function toggleCourseTheme() {
+        var body = document.body;
+        var willBeDark = !body.classList.contains('dark-theme');
+
+        function apply() {
+            body.classList.toggle('dark-theme', willBeDark);
+            localStorage.setItem(themeKey, willBeDark ? 'dark' : 'light');
+        }
+
+        if (!prefersReducedMotion.matches && typeof document.startViewTransition === 'function') {
+            document.startViewTransition(apply);
+            return;
+        }
+
+        body.classList.add('theme-switching');
+        apply();
+        window.setTimeout(function() {
+            body.classList.remove('theme-switching');
+        }, 340);
+    }
+
     (function themeAndColorSwitcher() {
         var body = document.body;
-        var themeKey = 'skl-course-theme';
         var themeToggle = document.getElementById('themeToggle');
 
         if (localStorage.getItem(themeKey) === 'dark') body.classList.add('dark-theme');
         body.setAttribute('data-color-scheme', 'purple');
 
         if (themeToggle) {
-            themeToggle.addEventListener('click', function() {
-                body.classList.toggle('dark-theme');
-                localStorage.setItem(themeKey, body.classList.contains('dark-theme') ? 'dark' : 'light');
-            });
+            themeToggle.addEventListener('click', toggleCourseTheme);
         }
     })();
 
@@ -258,8 +279,6 @@
         var menu = document.getElementById('mobileSettingsMenu');
         var closeBtn = document.getElementById('mobileSettingsClose');
         var mobileTheme = document.getElementById('mobileThemeToggle');
-        var desktopTheme = document.getElementById('themeToggle');
-        var themeKey = 'skl-course-theme';
 
         if (!trigger || !menu) return;
 
@@ -283,11 +302,7 @@
         }
         if (mobileTheme) {
             mobileTheme.addEventListener('click', function() {
-                if (desktopTheme) desktopTheme.click();
-                else {
-                    document.body.classList.toggle('dark-theme');
-                    localStorage.setItem(themeKey, document.body.classList.contains('dark-theme') ? 'dark' : 'light');
-                }
+                toggleCourseTheme();
                 setTimeout(syncMobileTheme, 100);
             });
         }
