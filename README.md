@@ -1,14 +1,21 @@
 # SKL Academy
 
-Официальный сайт IT-академии [skl-academy.tech](https://skl-academy.tech).
+Сайт IT-акадemia: [skl-academy.tech](https://skl-academy.tech)
 
-## Стек
+## Структура
 
-Статический сайт: HTML, CSS, JavaScript. Хостинг — GitHub Pages.
+Многостраничный статический сайт. Чистые URL: `/about/`, `/programs/`, `/contact/`.
+
+```
+css/          — base, layout, components
+partials/     — header, footer (подключаются через JS)
+about/        — страница «О нас»
+programs/     — программы
+contact/      — контакты и форма
+assets/icons/ — SVG-иконки
+```
 
 ## Локальный просмотр
-
-Откройте `index.html` в браузере или запустите локальный сервер:
 
 ```bash
 npx serve .
@@ -16,14 +23,6 @@ npx serve .
 
 ## Деплой
 
-Сайт автоматически публикуется на GitHub Pages при пуше в ветку `main`.
+Push в `main` → GitHub Pages публикует автоматически.
 
-### Настройка домена (REG.RU)
-
-1. В GitHub: **Settings → Pages → Custom domain** → `skl-academy.tech`
-2. В REG.RU добавьте DNS-записи:
-   - `A` → `185.199.108.153`
-   - `A` → `185.199.109.153`
-   - `A` → `185.199.110.153`
-   - `A` → `185.199.111.153`
-   - `CNAME` для `www` → `TimaPelmesh.github.io`
+Требования проекта — в локальном `REQUIREMENTS.md` (не в репозитории).

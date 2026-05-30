@@ -1,88 +1,66 @@
 (function () {
-  'use strict';
+  "use strict";
 
-  const header = document.getElementById('header');
-  const navBurger = document.getElementById('navBurger');
-  const navLinks = document.getElementById('navLinks');
-  const contactForm = document.getElementById('contactForm');
-  const toast = document.getElementById('toast');
-
-  /* Header scroll effect */
-  function onScroll() {
-    header.classList.toggle('header--scrolled', window.scrollY > 20);
+  async function loadPartial(selector, url) {
+    const el = document.querySelector(selector);
+    if (!el) return;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return;
+      el.innerHTML = await res.text();
+      document.dispatchEvent(new CustomEvent("partial:loaded", { detail: { selector } }));
+    } catch (_) {}
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
 
-  /* Mobile menu */
-  navBurger.addEventListener('click', () => {
-    const open = navLinks.classList.toggle('nav__links--open');
-    navBurger.setAttribute('aria-expanded', open);
-  });
+  function initNav() {
+    const toggle = document.getElementById("navToggle");
+    const list = document.getElementById("navList");
+    if (!toggle || !list) return;
 
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('nav__links--open');
-      navBurger.setAttribute('aria-expanded', 'false');
+    toggle.addEventListener("click", () => {
+      const open = list.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", open);
     });
-  });
 
-  /* Scroll reveal */
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('reveal--visible');
-          revealObserver.unobserve(entry.target);
-        }
+    list.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        list.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
       });
-    },
-    { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
-  );
-  revealEls.forEach(el => revealObserver.observe(el));
+    });
+  }
 
-  /* Counter animation */
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.count, 10);
-    const duration = 1800;
-    const start = performance.now();
+  function setActiveNav() {
+    const page = document.body.dataset.page;
+    if (!page) return;
+    document.querySelectorAll("[data-nav]").forEach((link) => {
+      if (link.dataset.nav === page) {
+        link.setAttribute("aria-current", "page");
+      }
+    });
+  }
 
-    function tick(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(target * eased);
-      if (progress < 1) requestAnimationFrame(tick);
+  function initForm() {
+    const form = document.getElementById("contactForm");
+    const msg = document.getElementById("formMessage");
+    if (!form || !msg) return;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      msg.textContent = "Заявка принята. Мы свяжемся с вами в ближайшее время.";
+      msg.classList.add("is-visible");
+      form.reset();
+    });
+  }
+
+  document.addEventListener("partial:loaded", (e) => {
+    if (e.detail.selector === '[data-partial="header"]') {
+      initNav();
+      setActiveNav();
     }
-    requestAnimationFrame(tick);
-  }
-
-  const statsObserver = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('[data-count]').forEach(animateCounter);
-          statsObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-  const statsBlock = document.querySelector('.hero__stats');
-  if (statsBlock) statsObserver.observe(statsBlock);
-
-  /* Contact form */
-  function showToast(message) {
-    toast.textContent = message;
-    toast.classList.add('toast--visible');
-    setTimeout(() => toast.classList.remove('toast--visible'), 4000);
-  }
-
-  contactForm.addEventListener('submit', e => {
-    e.preventDefault();
-    showToast('Спасибо! Мы свяжемся с вами в ближайшее время.');
-    contactForm.reset();
   });
 
-  /* Smooth anchor offset handled via CSS scroll-padding-top */
+  loadPartial('[data-partial="header"]', "/partials/header.html");
+  loadPartial('[data-partial="footer"]', "/partials/footer.html");
+  initForm();
 })();

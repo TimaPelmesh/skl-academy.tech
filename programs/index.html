@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <meta name="description" content="Программы обучения SKL Academy — Frontend, Fullstack, Python, DevOps.">
+  <title>Программы — SKL Academy</title>
+</head>
+<body data-page="programs">
+  <div data-partial="header"></div>
+
+  <main class="page-main">
+    <header class="page-header">
+      <div class="container">
+        <p class="page-header__label">Программы</p>
+        <h1>Направления обучения</h1>
+        <p class="page-header__lead">Выберите трек под свой уровень и цель. Описания и сроки будут уточнены — ниже черновая структура под ваш контент.</p>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="container grid-2">
+        <article class="card">
+          <div class="card__icon placeholder-block" aria-hidden="true">иконка</div>
+          <h2 class="card__title">Frontend</h2>
+          <p class="card__text">HTML, CSS, JavaScript, React, TypeScript. Вёрстка и клиентская логика современных приложений.</p>
+          <div class="card__meta"><span class="tag">6 месяцев</span><span class="tag">с нуля</span></div>
+        </article>
+        <article class="card">
+          <div class="card__icon placeholder-block" aria-hidden="true">иконка</div>
+          <h2 class="card__title">Fullstack</h2>
+          <p class="card__text">Frontend + backend + базы данных. Полный цикл создания веб-приложения.</p>
+          <div class="card__meta"><span class="tag">9 месяцев</span><span class="tag">с нуля</span></div>
+        </article>
+        <article class="card">
+          <div class="card__icon placeholder-block" aria-hidden="true">иконка</div>
+          <h2 class="card__title">Python</h2>
+          <p class="card__text">Django, FastAPI, автоматизация. Универсальный язык для веба и скриптов.</p>
+          <div class="card__meta"><span class="tag">7 месяцев</span><span class="tag">с нуля</span></div>
+        </article>
+        <article class="card">
+          <div class="card__icon placeholder-block" aria-hidden="true">иконка</div>
+          <h2 class="card__title">DevOps</h2>
+          <p class="card__text">Docker, CI/CD, облачная инфраструктура. Для тех, кто хочет заниматься деплоем и надёжностью систем.</p>
+          <div class="card__meta"><span class="tag">5 месяцев</span><span class="tag">средний уровень</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container prose">
+        <p>Нужна помощь с выбором? <a href="/contact/">Напишите нам</a> — подскажем, с чего начать.</p>
+      </div>
+    </section>
+  </main>
+
+  <div data-partial="footer"></div>
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

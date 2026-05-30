@@ -3,324 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SKL Academy — современная IT-академия. Практическое обучение, менторство и реальные проекты для вашей карьеры в технологиях.">
-  <meta name="theme-color" content="#0a0e1a">
-  <title>SKL Academy — IT-академия нового поколения</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%236366f1' rx='20' width='100' height='100'/><text y='.9em' x='50%' text-anchor='middle' font-size='60' fill='white' font-family='system-ui'>S</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <meta name="description" content="SKL Academy — IT-академия с упором на практику и менторство.">
+  <title>SKL Academy — IT-академия</title>
 </head>
-<body>
-  <div class="noise" aria-hidden="true"></div>
-  <div class="gradient-orb gradient-orb--1" aria-hidden="true"></div>
-  <div class="gradient-orb gradient-orb--2" aria-hidden="true"></div>
+<body data-page="home">
+  <div data-partial="header"></div>
 
-  <header class="header" id="header">
-    <nav class="nav container">
-      <a href="#" class="logo">
-        <span class="logo__mark">SKL</span>
-        <span class="logo__text">Academy</span>
-      </a>
-      <ul class="nav__links" id="navLinks">
-        <li><a href="#about">О нас</a></li>
-        <li><a href="#programs">Программы</a></li>
-        <li><a href="#advantages">Преимущества</a></li>
-        <li><a href="#contact">Контакты</a></li>
-      </ul>
-      <a href="#contact" class="btn btn--primary btn--sm nav__cta">Начать обучение</a>
-      <button class="nav__burger" id="navBurger" aria-label="Открыть меню" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </nav>
-  </header>
-
-  <main>
+  <main class="page-main">
     <section class="hero">
-      <div class="container hero__inner">
-        <div class="hero__content">
-          <div class="hero__badge reveal">
-            <span class="hero__badge-dot"></span>
-            Набор открыт · 2026
-          </div>
-          <h1 class="hero__title reveal reveal--delay-1">
-            Строй карьеру<br>
-            <span class="gradient-text">в IT</span> с нуля
-          </h1>
-          <p class="hero__subtitle reveal reveal--delay-2">
-            SKL Academy — место, где теория встречается с практикой.
-            Учись у практиков, работай над реальными проектами и выходи на рынок
-            с портфолио, которое впечатляет работодателей.
+      <div class="container">
+        <div class="hero__inner">
+          <p class="hero__eyebrow">IT-академия · skl-academy.tech</p>
+          <h1>Учим программировать так, как это делают в индустрии</h1>
+          <p class="hero__text">
+            SKL Academy — место для тех, к кому важна практика: реальные задачи,
+            обратная связь от менторов и понятный путь от основ до первых проектов в портфолио.
           </p>
-          <div class="hero__actions reveal reveal--delay-3">
-            <a href="#contact" class="btn btn--primary btn--lg">
-              Записаться на курс
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a href="#programs" class="btn btn--ghost btn--lg">Смотреть программы</a>
-          </div>
-          <div class="hero__stats reveal reveal--delay-4">
-            <div class="stat">
-              <span class="stat__value" data-count="500">0</span><span class="stat__suffix">+</span>
-              <span class="stat__label">выпускников</span>
-            </div>
-            <div class="stat__divider"></div>
-            <div class="stat">
-              <span class="stat__value" data-count="85">0</span><span class="stat__suffix">%</span>
-              <span class="stat__label">трудоустройство</span>
-            </div>
-            <div class="stat__divider"></div>
-            <div class="stat">
-              <span class="stat__value" data-count="12">0</span>
-              <span class="stat__label">направлений</span>
-            </div>
-          </div>
-        </div>
-        <div class="hero__visual reveal reveal--delay-2">
-          <div class="hero__card hero__card--main">
-            <div class="code-window">
-              <div class="code-window__bar">
-                <span></span><span></span><span></span>
-              </div>
-              <pre class="code-window__body"><code><span class="code-kw">const</span> <span class="code-var">student</span> = {
-  <span class="code-prop">name</span>: <span class="code-str">"Вы"</span>,
-  <span class="code-prop">skills</span>: [<span class="code-str">"JS"</span>, <span class="code-str">"Python"</span>, <span class="code-str">"DevOps"</span>],
-  <span class="code-prop">ready</span>: <span class="code-bool">true</span>
-};
-
-<span class="code-kw">await</span> <span class="code-fn">sklAcademy</span>.<span class="code-fn">launchCareer</span>(student);
-<span class="code-comment">// → Welcome aboard! 🚀</span></code></pre>
-            </div>
-          </div>
-          <div class="hero__card hero__card--float hero__card--1">
-            <div class="mini-card">
-              <div class="mini-card__icon mini-card__icon--green">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              </div>
-              <div>
-                <strong>Проект принят</strong>
-                <span>Fullstack приложение</span>
-              </div>
-            </div>
-          </div>
-          <div class="hero__card hero__card--float hero__card--2">
-            <div class="mini-card">
-              <div class="mini-card__icon mini-card__icon--purple">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <div>
-                <strong>Ментор онлайн</strong>
-                <span>Code review за 2 часа</span>
-              </div>
-            </div>
+          <div class="hero__actions">
+            <a href="/programs/" class="btn btn--primary">Смотреть программы</a>
+            <a href="/about/" class="btn btn--ghost">О методике</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="marquee" aria-hidden="true">
-      <div class="marquee__track">
-        <span>JavaScript</span><span>Python</span><span>React</span><span>Node.js</span><span>Docker</span><span>Git</span><span>SQL</span><span>TypeScript</span><span>DevOps</span><span>UI/UX</span>
-        <span>JavaScript</span><span>Python</span><span>React</span><span>Node.js</span><span>Docker</span><span>Git</span><span>SQL</span><span>TypeScript</span><span>DevOps</span><span>UI/UX</span>
-      </div>
-    </section>
-
-    <section class="section" id="about">
+    <section class="section">
       <div class="container">
-        <div class="section__header reveal">
-          <span class="section__tag">О нас</span>
-          <h2 class="section__title">Академия, где учат<br><span class="gradient-text">делать, а не слушать</span></h2>
-        </div>
-        <div class="about__grid">
-          <div class="about__text reveal">
-            <p>Мы создали SKL Academy для тех, кто устал от бесконечных лекций без результата. Наша методика — 70% практики, 30% теории. Каждый модуль завершается реальным проектом в вашем портфолио.</p>
-            <p>Команда менторов — действующие разработчики из продуктовых компаний. Они знают, что спрашивают на собеседованиях, потому что сами их проводят.</p>
-          </div>
-          <div class="about__cards">
-            <div class="feature-card reveal">
-              <div class="feature-card__num">01</div>
-              <h3>Практика с первого дня</h3>
-              <p>Пишете код с первого занятия. Никаких «потом разберёмся» — только hands-on.</p>
-            </div>
-            <div class="feature-card reveal reveal--delay-1">
-              <div class="feature-card__num">02</div>
-              <h3>Менторство 1 на 1</h3>
-              <p>Персональный ментор следит за прогрессом и помогает преодолеть сложные этапы.</p>
-            </div>
-            <div class="feature-card reveal reveal--delay-2">
-              <div class="feature-card__num">03</div>
-              <h3>Карьерная поддержка</h3>
-              <p>Резюме, mock-собеседования и рекомендации — до оффера и после.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--dark" id="programs">
-      <div class="container">
-        <div class="section__header reveal">
-          <span class="section__tag">Программы</span>
-          <h2 class="section__title">Выберите своё<br><span class="gradient-text">направление</span></h2>
-        </div>
-        <div class="programs__grid">
-          <article class="program-card reveal">
-            <div class="program-card__icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            </div>
-            <h3>Frontend-разработка</h3>
-            <p>HTML, CSS, JavaScript, React, TypeScript. Создание современных интерфейсов.</p>
-            <ul class="program-card__tags">
-              <li>6 месяцев</li>
-              <li>Начальный</li>
-            </ul>
+        <h2 class="section__title">Чем мы отличаемся</h2>
+        <p class="section__intro">Три опоры, на которых строится обучение. Тексты и иконки будут уточнены.</p>
+        <div class="grid-3">
+          <article class="card">
+            <div class="card__icon placeholder-block" aria-hidden="true">иконка</div>
+            <h3 class="card__title">Практика</h3>
+            <p class="card__text">Код с первых занятий. Каждый модуль завершается задачей, которую можно показать работодателю.</p>
           </article>
-          <article class="program-card program-card--featured reveal reveal--delay-1">
-            <div class="program-card__badge">Популярный</div>
-            <div class="program-card__icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            </div>
-            <h3>Fullstack-разработка</h3>
-            <p>Frontend + Backend + базы данных. Полный цикл создания веб-приложений.</p>
-            <ul class="program-card__tags">
-              <li>9 месяцев</li>
-              <li>С нуля</li>
-            </ul>
+          <article class="card">
+            <div class="card__icon placeholder-block" aria-hidden="true">иконка</div>
+            <h3 class="card__title">Менторство</h3>
+            <p class="card__text">Живая обратная связь от практиков, а не только записанные лекции.</p>
           </article>
-          <article class="program-card reveal reveal--delay-2">
-            <div class="program-card__icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h3>DevOps & Cloud</h3>
-            <p>Docker, Kubernetes, CI/CD, AWS. Автоматизация и инфраструктура.</p>
-            <ul class="program-card__tags">
-              <li>5 месяцев</li>
-              <li>Средний</li>
-            </ul>
-          </article>
-          <article class="program-card reveal reveal--delay-3">
-            <div class="program-card__icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-            </div>
-            <h3>Python-разработка</h3>
-            <p>Django, FastAPI, автоматизация, data engineering. Универсальный язык.</p>
-            <ul class="program-card__tags">
-              <li>7 месяцев</li>
-              <li>Начальный</li>
-            </ul>
+          <article class="card">
+            <div class="card__icon placeholder-block" aria-hidden="true">иконка</div>
+            <h3 class="card__title">Карьера</h3>
+            <p class="card__text">Помощь с резюме, проектами и подготовкой к собеседованиям.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="advantages">
-      <div class="container">
-        <div class="section__header reveal">
-          <span class="section__tag">Преимущества</span>
-          <h2 class="section__title">Почему выбирают<br><span class="gradient-text">SKL Academy</span></h2>
+    <section class="section">
+      <div class="container split-section">
+        <div class="prose">
+          <h2>Направления обучения</h2>
+          <p>Frontend, Fullstack, Python, DevOps — программы собраны так, чтобы можно было начать с нуля или усилить уже имеющийся стек.</p>
+          <p style="margin-top: 1rem;"><a href="/programs/" class="link-arrow">Все программы</a></p>
         </div>
-        <div class="advantages__grid">
-          <div class="advantage reveal">
-            <div class="advantage__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <h3>Гибкий график</h3>
-            <p>Учитесь в удобное время. Записи занятий и материалы доступны 24/7.</p>
-          </div>
-          <div class="advantage reveal reveal--delay-1">
-            <div class="advantage__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-            </div>
-            <h3>Актуальная программа</h3>
-            <p>Обновляем курсы каждый квартал по запросам индустрии и работодателей.</p>
-          </div>
-          <div class="advantage reveal reveal--delay-2">
-            <div class="advantage__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <h3>Сообщество</h3>
-            <p>Закрытый чат выпускников, нетворкинг и совместные pet-проекты.</p>
-          </div>
-          <div class="advantage reveal reveal--delay-3">
-            <div class="advantage__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h3>Гарантия качества</h3>
-            <p>Не подошло? Вернём деньги в первые 14 дней — без лишних вопросов.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-section" id="contact">
-      <div class="container">
-        <div class="cta reveal">
-          <div class="cta__content">
-            <h2>Готовы начать?</h2>
-            <p>Оставьте заявку — мы свяжемся с вами, расскажем о программах и поможем выбрать направление.</p>
-          </div>
-          <form class="cta__form" id="contactForm">
-            <div class="form-row">
-              <input type="text" name="name" placeholder="Ваше имя" required autocomplete="name">
-              <input type="email" name="email" placeholder="Email" required autocomplete="email">
-            </div>
-            <div class="form-row">
-              <select name="program" required>
-                <option value="" disabled selected>Выберите программу</option>
-                <option value="frontend">Frontend-разработка</option>
-                <option value="fullstack">Fullstack-разработка</option>
-                <option value="devops">DevOps & Cloud</option>
-                <option value="python">Python-разработка</option>
-              </select>
-              <button type="submit" class="btn btn--primary btn--lg">
-                Отправить заявку
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </button>
-            </div>
-          </form>
-          <p class="cta__note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</p>
-        </div>
+        <div class="placeholder-block">Здесь будет блок с актуальными программами и сроками — контент от заказчика</div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <a href="#" class="logo">
-          <span class="logo__mark">SKL</span>
-          <span class="logo__text">Academy</span>
-        </a>
-        <p>IT-академия нового поколения.<br>Учим делать — не слушать.</p>
-      </div>
-      <div class="footer__links">
-        <div>
-          <h4>Навигация</h4>
-          <ul>
-            <li><a href="#about">О нас</a></li>
-            <li><a href="#programs">Программы</a></li>
-            <li><a href="#advantages">Преимущества</a></li>
-            <li><a href="#contact">Контакты</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Контакты</h4>
-          <ul>
-            <li><a href="mailto:hello@skl-academy.tech">hello@skl-academy.tech</a></li>
-            <li><a href="https://t.me/sklacademy" target="_blank" rel="noopener">Telegram</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer__bottom">
-        <span>&copy; 2026 SKL Academy. Все права защищены.</span>
-        <span>skl-academy.tech</span>
-      </div>
-    </div>
-  </footer>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <script src="js/main.js"></script>
+  <div data-partial="footer"></div>
+  <script src="/js/main.js" defer></script>
 </body>
 </html>
