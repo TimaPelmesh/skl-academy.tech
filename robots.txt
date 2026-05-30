@@ -8,10 +8,10 @@ Allow: /*.css$
 Allow: /images/
 
 # Указываем расположение sitemap
-Sitemap: https://skl-academy.ru/sitemap.xml
+Sitemap: https://skl-academy.tech/sitemap.xml
 
 # Для Яндекса указываем основной хост
-Host: skl-academy.ru
+Host: skl-academy.tech
 
 # Запрет индексации служебных и системных директорий
 Disallow: /.git/
