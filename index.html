@@ -282,7 +282,7 @@
               <div class="stat-label">Курсов</div>
             </div>
             <div class="stat-block" style="--stat-delay: 0.25s;">
-              <div class="stat-number stat-text">24/7</div>
+              <div class="stat-number stat-counter stat-counter-dual" data-count-a="24" data-count-b="7" data-duration="1400" aria-label="24/7">0/0</div>
               <div class="stat-label">Доступ</div>
             </div>
             <div class="stat-block" style="--stat-delay: 0.4s;">
@@ -552,43 +552,16 @@
   </div>
 
   <!-- Trainers Section -->
-  <div id="trainers" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div id="trainers" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="text-center mb-6">
       <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">Интерактивные инструменты</h2>
       <p class="mt-3 max-w-2xl text-xl text-gray-600 mx-auto">
         Тренажеры, интерактивные песочницы и практические инструменты для обучения
       </p>
     </div>
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto">
-      <!-- Trainer 1: Typing -->
-      <div class="course-card">
-        <div class="p-6">
-          <div class="flex items-center">
-            <div class="course-icon-container flex-shrink-0 bg-gray-100 p-3 rounded-xl">
-              <i class="fas fa-keyboard text-indigo-600 text-xl"></i>
-            </div>
-            <div class="ml-4">
-              <h3 class="text-xl font-medium text-gray-900">Тренажер печати</h3>
-            </div>
-          </div>
-          <div class="mt-4">
-            <p class="text-gray-600">Улучшите скорость и точность печати с помощью интерактивного тренажера.</p>
-          </div>
-          <div class="mt-6 flex space-x-4 course-card-actions">
-            <button type="button" class="course-button-secondary" data-modal-target="modal-typing">
-              Подробнее
-              <i class="fas fa-info-circle ml-2"></i>
-            </button>
-            <a href="sandbox/typing/index.html" class="course-button">
-              Перейти
-              <i class="fas fa-arrow-right ml-2"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
+    <div class="trainers-grid grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 items-stretch">
       <!-- Interactive Sandbox: Web Playground -->
-      <div class="course-card">
+      <div class="course-card h-full">
         <div class="p-6">
           <div class="flex items-center justify-between">
             <div class="flex items-center">
@@ -617,7 +590,7 @@
       </div>
 
       <!-- Тренажер Bash и PowerShell переехал в desk -->
-      <div class="course-card">
+      <div class="course-card h-full">
         <div class="p-6">
           <div class="flex items-center">
             <div class="course-icon-container flex-shrink-0 bg-gray-100 p-3 rounded-xl">
@@ -644,7 +617,7 @@
       </div>
 
       <!-- Trainer: PC Architecture -->
-      <div class="course-card">
+      <div class="course-card h-full">
         <div class="p-6">
           <div class="flex items-center">
             <div class="course-icon-container flex-shrink-0 bg-gray-100 p-3 rounded-xl">
@@ -681,7 +654,7 @@
       </p>
     </div>
     <div class="max-w-5xl mx-auto">
-      <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-3 items-stretch">
         <!-- Article 1: URL Journey -->
         <div class="course-card h-full article-card hover:shadow-lg">
           <div class="p-5 flex flex-col h-full relative overflow-hidden">
@@ -702,14 +675,12 @@
                 </div>
               </div>
             </div>
-            <div class="mt-3 flex-grow">
-              <p class="text-gray-600 text-sm">DNS, TCP, TLS, HTTP, рендеринг — полный путь запроса от Enter до страницы.</p>
-              <div class="mt-3 flex items-center justify-end">
-                <a href="articles/url-journey.html" class="article-read-button">
-                  Читать
-                  <i class="fas fa-arrow-right ml-1.5"></i>
-                </a>
-              </div>
+            <p class="mt-3 text-gray-600 text-sm article-card-desc">DNS, TCP, TLS, HTTP, рендеринг — полный путь запроса от Enter до страницы.</p>
+            <div class="article-card-actions">
+              <a href="articles/url-journey.html" class="article-read-button">
+                Читать
+                <i class="fas fa-arrow-right ml-1.5"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -734,14 +705,12 @@
                 </div>
               </div>
             </div>
-            <div class="mt-3 flex-grow">
-              <p class="text-gray-600 text-sm">Knight Capital, Cloudflare, AWS — истории катастрофических ошибок.</p>
-              <div class="mt-3 flex items-center justify-end">
-                <a href="articles/billion-dollar-bugs.html" class="article-read-button">
-                  Читать
-                  <i class="fas fa-arrow-right ml-1.5"></i>
-                </a>
-              </div>
+            <p class="mt-3 text-gray-600 text-sm article-card-desc">Knight Capital, Cloudflare, AWS — истории катастрофических ошибок.</p>
+            <div class="article-card-actions">
+              <a href="articles/billion-dollar-bugs.html" class="article-read-button">
+                Читать
+                <i class="fas fa-arrow-right ml-1.5"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -766,14 +735,12 @@
                 </div>
               </div>
             </div>
-            <div class="mt-3 flex-grow">
-              <p class="text-gray-600 text-sm">Методология для понимания незнакомых кодовых баз. Навык, которому не учат.</p>
-              <div class="mt-3 flex items-center justify-end">
-                <a href="articles/reading-code.html" class="article-read-button">
-                  Читать
-                  <i class="fas fa-arrow-right ml-1.5"></i>
-                </a>
-              </div>
+            <p class="mt-3 text-gray-600 text-sm article-card-desc">Методология для понимания незнакомых кодовых баз. Навык, которому не учат.</p>
+            <div class="article-card-actions">
+              <a href="articles/reading-code.html" class="article-read-button">
+                Читать
+                <i class="fas fa-arrow-right ml-1.5"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -1200,7 +1167,7 @@
   </div>
 
   <!-- Модальное окно для тренажера печати -->
-  <div class="modal" id="modal-typing">
+  <div class="modal hidden" id="modal-typing" hidden aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content">
       <div class="modal-header">
@@ -1507,38 +1474,73 @@
     // Hero: анимация счётчиков только на десктопе; на мобилке — сразу финальные значения
     function animateCounters() {
       var counters = document.querySelectorAll('.stat-counter[data-count]');
-      if (!counters.length) return;
+      var dualCounters = document.querySelectorAll('.stat-counter-dual[data-count-a][data-count-b]');
+      if (!counters.length && !dualCounters.length) return;
       var hero = document.querySelector('.gradient-bg');
       if (!hero) return;
-      var isDesktop = window.matchMedia('(min-width: 1024px)').matches;
-      if (!isDesktop) {
+
+      function easeOut(progress) {
+        return 1 - Math.pow(1 - progress, 2.2);
+      }
+
+      function setFinalValues() {
         counters.forEach(function(el) {
           var target = parseInt(el.getAttribute('data-count'), 10);
           var suffix = el.getAttribute('data-suffix') || '';
           el.textContent = target + suffix;
         });
+        dualCounters.forEach(function(el) {
+          var a = parseInt(el.getAttribute('data-count-a'), 10);
+          var b = parseInt(el.getAttribute('data-count-b'), 10);
+          el.textContent = a + '/' + b;
+        });
+      }
+
+      function runSingleCounter(el) {
+        var target = parseInt(el.getAttribute('data-count'), 10);
+        var duration = parseInt(el.getAttribute('data-duration'), 10) || 1200;
+        var suffix = el.getAttribute('data-suffix') || '';
+        var startTime = null;
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          var progress = easeOut(Math.min((timestamp - startTime) / duration, 1));
+          el.textContent = Math.round(target * progress) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      function runDualCounter(el) {
+        var targetA = parseInt(el.getAttribute('data-count-a'), 10);
+        var targetB = parseInt(el.getAttribute('data-count-b'), 10);
+        var duration = parseInt(el.getAttribute('data-duration'), 10) || 1400;
+        var startTime = null;
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          var progress = easeOut(Math.min((timestamp - startTime) / duration, 1));
+          var currentA = Math.max(1, Math.round(targetA * progress));
+          var currentB = Math.max(1, Math.round(targetB * progress));
+          if (progress >= 1) {
+            currentA = targetA;
+            currentB = targetB;
+          }
+          el.textContent = currentA + '/' + currentB;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      var isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+      if (!isDesktop) {
+        setFinalValues();
         return;
       }
+
       var done = false;
       function run() {
         if (done) return;
-        counters.forEach(function(el) {
-          var target = parseInt(el.getAttribute('data-count'), 10);
-          var duration = parseInt(el.getAttribute('data-duration'), 10) || 1200;
-          var suffix = el.getAttribute('data-suffix') || '';
-          var start = 0;
-          var startTime = null;
-          function step(timestamp) {
-            if (!startTime) startTime = timestamp;
-            var elapsed = timestamp - startTime;
-            var progress = Math.min(elapsed / duration, 1);
-            progress = 1 - Math.pow(1 - progress, 2.2);
-            var current = Math.round(start + (target - start) * progress);
-            el.textContent = current + suffix;
-            if (progress < 1) requestAnimationFrame(step);
-          }
-          requestAnimationFrame(step);
-        });
+        counters.forEach(runSingleCounter);
+        dualCounters.forEach(runDualCounter);
         done = true;
       }
       var obs = new IntersectionObserver(function(entries) {
