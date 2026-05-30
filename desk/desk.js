@@ -68,14 +68,14 @@ function initDesk() {
       icon: 'fas fa-folder-open',
       type: 'folder',
       items: [
-        { title: 'Компьютерные сети', url: root + '/courses/networks/01-networks-fundamental.html', icon: 'fas fa-network-wired' },
-        { title: 'Python', url: root + '/courses/python/01-python-basics.html', icon: 'fab fa-python' },
-        { title: 'Git', url: root + '/courses/git/01-git-basics.html', icon: 'fab fa-git-alt' },
-        { title: 'Веб-разработка', url: root + '/courses/web/01-html-basics.html', icon: 'fab fa-html5' },
-        { title: 'Linux и Bash', url: root + '/courses/linux/01-linux-basics.html', icon: 'fab fa-linux' },
-        { title: 'Windows и PowerShell', url: root + '/courses/windows/01-windows-basics.html', icon: 'fab fa-windows' },
-        { title: 'Технический английский', url: root + '/courses/english/01-foundations.html', icon: 'fas fa-language' },
-        { title: 'Введение в AI', url: root + '/courses/ai/00-about-course.html', icon: 'fas fa-brain' }
+        { title: 'Компьютерные сети', url: root + '/courses/networks/01-networks-fundamental/', icon: 'fas fa-network-wired' },
+        { title: 'Python', url: root + '/courses/python/01-python-basics/', icon: 'fab fa-python' },
+        { title: 'Git', url: root + '/courses/git/01-git-basics/', icon: 'fab fa-git-alt' },
+        { title: 'Веб-разработка', url: root + '/courses/web/01-html-basics/', icon: 'fab fa-html5' },
+        { title: 'Linux и Bash', url: root + '/courses/linux/01-linux-basics/', icon: 'fab fa-linux' },
+        { title: 'Windows и PowerShell', url: root + '/courses/windows/01-windows-basics/', icon: 'fab fa-windows' },
+        { title: 'Технический английский', url: root + '/courses/english/01-foundations/', icon: 'fas fa-language' },
+        { title: 'Введение в AI', url: root + '/courses/ai/00-about-course/', icon: 'fas fa-brain' }
       ]
     },
     tools: {
