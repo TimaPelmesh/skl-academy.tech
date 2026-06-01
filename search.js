@@ -91,6 +91,7 @@ class SearchSystem {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         this.hideResults();
+        this.closeMobileSearch();
       }
     });
   }
@@ -370,31 +371,39 @@ class SearchSystem {
   }
 
   openMobileSearch() {
+    if (window.SKLHomeUI && typeof window.SKLHomeUI.closeMobileMenu === 'function') {
+      window.SKLHomeUI.closeMobileMenu();
+    }
     if (this.mobileSearchResults) {
       this.mobileSearchResults.classList.remove('hidden');
-      this.mobileSearchToggle.classList.add('active');
-      document.body.style.overflow = 'hidden'; // Блокируем прокрутку
-      
-      // Фокусируемся на поле ввода
+      if (this.mobileSearchToggle) this.mobileSearchToggle.classList.add('active');
+      document.body.classList.add('mobile-search-open');
+      if (!document.body.classList.contains('mobile-menu-open')) {
+        document.body.style.overflow = 'hidden';
+      }
+
       setTimeout(() => {
         if (this.mobileSearchInput) {
           this.mobileSearchInput.focus();
         }
-      }, 100);
+      }, 120);
     }
   }
 
   closeMobileSearch() {
     if (this.mobileSearchResults) {
       this.mobileSearchResults.classList.add('hidden');
-      this.mobileSearchToggle.classList.remove('active');
-      document.body.style.overflow = ''; // Восстанавливаем прокрутку
-      
-      // Очищаем поле ввода
+      if (this.mobileSearchToggle) this.mobileSearchToggle.classList.remove('active');
+      document.body.classList.remove('mobile-search-open');
+      if (!document.body.classList.contains('mobile-menu-open')) {
+        document.body.style.overflow = '';
+      }
+
       if (this.mobileSearchInput) {
         this.mobileSearchInput.value = '';
       }
       this.currentQuery = '';
+      this.hideMobileResults();
     }
   }
 
@@ -412,7 +421,7 @@ class SearchSystem {
       e.preventDefault();
       this.performMobileSearch();
     } else if (e.key === 'Escape') {
-      this.hideMobileResults();
+      this.closeMobileSearch();
     }
   }
 }

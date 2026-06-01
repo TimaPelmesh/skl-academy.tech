@@ -142,7 +142,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Critical site styles first to reduce FOUC -->
-  <link rel="stylesheet" href="styles.css?v=20260530-trainers">
+  <link rel="stylesheet" href="styles.css?v=20260601-home-mobile">
 
   <!-- Preconnect for fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -156,7 +156,7 @@
 </head>
 <body class="font-sans">
   <!-- Navigation -->
-  <nav class="bg-white backdrop-blur-sm shadow-sm sticky top-0 z-50">
+  <nav class="site-nav bg-white backdrop-blur-sm shadow-sm sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20 items-center">
         <!-- Логотип (слева на десктопе, скрыт на мобильных) -->
@@ -237,9 +237,9 @@
               </div>
 
               <!-- Бургер меню -->
-              <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                <span class="sr-only">Open main menu</span>
-                <div class="burger-icon">
+              <button type="button" id="mobile-menu-button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 focus:outline-none" aria-expanded="false" aria-controls="mobile-menu-overlay">
+                <span class="sr-only">Открыть меню</span>
+                <div class="burger-icon" aria-hidden="true">
                   <span class="line"></span>
                   <span class="line"></span>
                   <span class="line"></span>
@@ -251,16 +251,20 @@
       </div>
     </div>
     
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden">
-      <div class="pt-2 pb-3 space-y-1 px-4">
-        <a href="#trainers" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100">Интерактивные инструменты</a>
-        <a href="#articles" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100">Библиотека</a>
-        <a href="#contacts" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100">Контакты</a>
-        <a href="/about/" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100">О проекте</a>
-      </div>
-    </div>
   </nav>
+
+  <!-- Мобильное меню: по центру экрана, бургер → крестик в шапке -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay hidden md:hidden" aria-hidden="true">
+    <div class="mobile-menu-backdrop" tabindex="-1"></div>
+    <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Навигация">
+      <nav class="mobile-menu-nav">
+        <a href="#trainers">Интерактивные инструменты</a>
+        <a href="#articles">Библиотека</a>
+        <a href="#contacts">Контакты</a>
+        <a href="/about/">О проекте</a>
+      </nav>
+    </div>
+  </div>
 
   <!-- Hero Section -->
   <div class="gradient-bg text-white pt-4 relative overflow-hidden">
@@ -1436,8 +1440,8 @@
     </div>
   </footer>
 <script src="search-data.js" defer></script>
-  <script src="search.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="search.js?v=20260601-home-mobile" defer></script>
+  <script src="script.js?v=20260601-home-mobile" defer></script>
   <script>
     // Функция для плавного скролла к контактам
     function scrollToContacts(event) {

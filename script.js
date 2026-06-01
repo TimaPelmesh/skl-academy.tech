@@ -1,22 +1,71 @@
-// Mobile menu toggle с анимацией
-document.getElementById('mobile-menu-button').addEventListener('click', function() {
-  const menu = document.getElementById('mobile-menu');
-  const burgerIcon = this.querySelector('.burger-icon');
-  
-  // Переключаем активные классы для меню и иконки
-  menu.classList.toggle('is-active');
-  burgerIcon.classList.toggle('is-active');
-  
-  // Добавляем/удаляем класс hidden для совместимости
-  if (menu.classList.contains('is-active')) {
-    menu.classList.remove('hidden');
-  } else {
-    // Добавляем класс hidden после завершения анимации
-    setTimeout(() => {
-      menu.classList.add('hidden');
-    }, 300);
+// Мобильное меню: центр экрана, бургер → крестик в шапке
+(function initHomeMobileMenu() {
+  const btn = document.getElementById('mobile-menu-button');
+  const overlay = document.getElementById('mobile-menu-overlay');
+  const burgerIcon = btn && btn.querySelector('.burger-icon');
+  const backdrop = overlay && overlay.querySelector('.mobile-menu-backdrop');
+
+  if (!btn || !overlay) return;
+
+  function setMenuOpen(open) {
+    overlay.classList.toggle('is-open', open);
+    overlay.setAttribute('aria-hidden', open ? 'false' : 'true');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (burgerIcon) burgerIcon.classList.toggle('is-active', open);
+    document.body.classList.toggle('mobile-menu-open', open);
+
+    if (open) {
+      overlay.classList.remove('hidden');
+      if (!document.body.classList.contains('mobile-search-open')) {
+        document.body.style.overflow = 'hidden';
+      }
+      if (window.searchSystem && typeof window.searchSystem.closeMobileSearch === 'function') {
+        window.searchSystem.closeMobileSearch();
+      }
+    } else {
+      if (!document.body.classList.contains('mobile-search-open')) {
+        document.body.style.overflow = '';
+      }
+      window.setTimeout(function() {
+        if (!overlay.classList.contains('is-open')) {
+          overlay.classList.add('hidden');
+        }
+      }, 360);
+    }
   }
-});
+
+  function toggleMenu() {
+    setMenuOpen(!overlay.classList.contains('is-open'));
+  }
+
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  if (backdrop) {
+    backdrop.addEventListener('click', function() {
+      setMenuOpen(false);
+    });
+  }
+
+  overlay.querySelectorAll('.mobile-menu-nav a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      setMenuOpen(false);
+    });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+      setMenuOpen(false);
+    }
+  });
+
+  window.SKLHomeUI = window.SKLHomeUI || {};
+  window.SKLHomeUI.closeMobileMenu = function() {
+    setMenuOpen(false);
+  };
+})();
 
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
