@@ -12,10 +12,10 @@
     <meta property="og:title" content="Web Playground — HTML/CSS/JS редактор">
     <meta property="og:description" content="Интерактивная среда для изучения веб-разработки">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://skl-academy.tech/sandbox/web-playground/index.html">
+    <meta property="og:url" content="https://skl-academy.tech/sandbox/web-playground/">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://skl-academy.tech/sandbox/web-playground/index.html">
+    <link rel="canonical" href="https://skl-academy.tech/sandbox/web-playground/">
     
     <!-- Favicon -->
     <link rel="icon" href="../../images/icon.ico" type="image/x-icon">
@@ -23,18 +23,27 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CodeMirror -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/eclipse.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/darcula.min.css">
     
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260530-playground-dark">
+    <script>
+      try {
+        if (localStorage.getItem('skl-playground-theme') === 'dark') {
+          document.documentElement.classList.add('dark-theme');
+        }
+      } catch (e) {}
+    </script>
 </head>
 <body>
+<script>try{if(document.documentElement.classList.contains('dark-theme'))document.body.classList.add('dark-theme');}catch(e){}</script>
     <!-- Header -->
     <header class="header">
-        <a href="../../index.html" class="back-link">
+        <a href="/" class="back-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
@@ -44,6 +53,14 @@
         <h1 class="title">Web Playground</h1>
         
         <div class="header-actions">
+            <button class="theme-toggle-btn" id="themeToggle" type="button" title="Переключить тему" aria-label="Переключить тему">
+                <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/>
+                </svg>
+                <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd"/>
+                </svg>
+            </button>
             <button class="btn btn-icon" id="resetBtn" title="Сбросить код">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
@@ -72,6 +89,85 @@
                     </svg>
                 </button>
                 <div class="dropdown-menu" id="dropdownMenu">
+                    <div class="dropdown-label">SKL Academy</div>
+                    <button class="dropdown-item" data-template="sklHero">
+                        <span class="dropdown-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </span>
+                        <div>
+                            <div class="dropdown-item-title">Hero-блок</div>
+                            <div class="dropdown-item-desc">Как на главной странице</div>
+                        </div>
+                    </button>
+                    <button class="dropdown-item" data-template="sklCards">
+                        <span class="dropdown-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="9" rx="1"/>
+                                <rect x="14" y="3" width="7" height="9" rx="1"/>
+                                <rect x="3" y="14" width="7" height="7" rx="1"/>
+                                <rect x="14" y="14" width="7" height="7" rx="1"/>
+                            </svg>
+                        </span>
+                        <div>
+                            <div class="dropdown-item-title">Карточки курсов</div>
+                            <div class="dropdown-item-desc">Сетка в стиле сайта</div>
+                        </div>
+                    </button>
+                    <button class="dropdown-item" data-template="navbar">
+                        <span class="dropdown-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="3" y1="12" x2="21" y2="12"/>
+                                <line x1="3" y1="6" x2="21" y2="6"/>
+                                <line x1="3" y1="18" x2="21" y2="18"/>
+                            </svg>
+                        </span>
+                        <div>
+                            <div class="dropdown-item-title">Навигация</div>
+                            <div class="dropdown-item-desc">Шапка и меню</div>
+                        </div>
+                    </button>
+                    <button class="dropdown-item" data-template="badges">
+                        <span class="dropdown-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </span>
+                        <div>
+                            <div class="dropdown-item-title">Статистика</div>
+                            <div class="dropdown-item-desc">Бейджи и цифры</div>
+                        </div>
+                    </button>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-label">Интерактив</div>
+                    <button class="dropdown-item" data-template="tabs">
+                        <span class="dropdown-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <line x1="3" y1="9" x2="21" y2="9"/>
+                            </svg>
+                        </span>
+                        <div>
+                            <div class="dropdown-item-title">Вкладки</div>
+                            <div class="dropdown-item-desc">Переключение без анимаций</div>
+                        </div>
+                    </button>
+                    <button class="dropdown-item" data-template="todo">
+                        <span class="dropdown-item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"/>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                            </svg>
+                        </span>
+                        <div>
+                            <div class="dropdown-item-title">Список задач</div>
+                            <div class="dropdown-item-desc">Чекбоксы и добавление</div>
+                        </div>
+                    </button>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-label">Основы</div>
                     <button class="dropdown-item" data-template="blank">
                         <span class="dropdown-item-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -140,18 +236,20 @@
                             <div class="dropdown-item-desc">Форма входа</div>
                         </div>
                     </button>
-                    <button class="dropdown-item" data-template="animation">
+                    <button class="dropdown-item" data-template="pricing">
                         <span class="dropdown-item-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12 6 12 12 16 14"/>
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                             </svg>
                         </span>
                         <div>
-                            <div class="dropdown-item-title">Анимация</div>
-                            <div class="dropdown-item-desc">CSS анимации</div>
+                            <div class="dropdown-item-title">Тариф</div>
+                            <div class="dropdown-item-desc">Карточка цены</div>
                         </div>
                     </button>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-label">Вёрстка</div>
                     <button class="dropdown-item" data-template="flexbox">
                         <span class="dropdown-item-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

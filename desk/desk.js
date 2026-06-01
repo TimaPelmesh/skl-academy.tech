@@ -85,7 +85,7 @@ function initDesk() {
         { title: 'Тренажер печати', desc: 'Скорость и точность', url: root + '/sandbox/typing/index.html', icon: 'fas fa-keyboard' },
         { title: 'Linux команды', desc: 'Интерактивный тренажер', url: root + '/sandbox/linux-commands/index.html', icon: 'fab fa-linux' },
         { title: 'Архитектура ПК', desc: '3D-модель компьютера', url: root + '/sandbox/pc-architecture/index.html', icon: 'fas fa-desktop' },
-        { title: 'Веб-песочница', desc: 'HTML, CSS, JS', url: root + '/sandbox/web-playground/index.html', icon: 'fas fa-code' }
+        { title: 'Веб-песочница', desc: 'HTML, CSS, JS', url: root + '/sandbox/web-playground/', icon: 'fas fa-code' }
       ]
     },
     games: {
