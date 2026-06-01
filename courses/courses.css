@@ -1,5 +1,6 @@
 /* Шрифты */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap&subset=cyrillic,latin');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
     /* Платформенная индиго-палитра в стиле главной */
@@ -43,6 +44,11 @@
     --contact-card-link-hover: #4338ca;
     --contact-card-link-bg: rgba(79, 70, 229, 0.06);
     --contact-card-link-bg-hover: rgba(79, 70, 229, 0.12);
+
+    /* Код и таблицы */
+    --code-font: 'JetBrains Mono', 'Cascadia Code', 'Consolas', ui-monospace, monospace;
+    --code-size: 0.9375rem;
+    --code-line: 1.65;
 }
 
 * {
@@ -343,7 +349,7 @@ body.dark-theme .theme-toggle-btn .theme-icon-moon {
     gap: 5px;
     z-index: 200;
     border-radius: 8px;
-    transition: all 0.3s ease;
+    transition: left 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.2s ease, transform 0.2s ease;
     padding: 8px;
 }
 
@@ -709,6 +715,8 @@ body::-webkit-scrollbar-thumb {
 @media (max-width: 991px) {
     .sidebar {
         transform: translateX(-100%);
+        width: min(280px, 86vw);
+        box-shadow: 8px 0 32px rgba(15, 23, 42, 0.18);
     }
 
     .sidebar.active {
@@ -718,6 +726,35 @@ body::-webkit-scrollbar-thumb {
     .content,
     .content.sidebar-active {
         margin-left: 0;
+    }
+
+    /* Крестик — справа от сайдбара, не на нём */
+    body.mobile-sidebar-open .menu-toggle {
+        left: calc(min(280px, 86vw) + 14px);
+    }
+
+    .sidebar-backdrop {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: var(--header-height);
+        bottom: 0;
+        z-index: 98;
+        background: rgba(15, 23, 42, 0.42);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .sidebar-backdrop.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    body.dark-theme .sidebar-backdrop {
+        background: rgba(0, 0, 0, 0.55);
     }
 }
 
@@ -1100,10 +1137,12 @@ h4 {
 
 /* Блоки кода — единая подсветка в стиле Cursor/VS Code, выразительная карточка */
 .code-example {
-    border-radius: var(--radius-card);
+    border-radius: 12px;
     margin: 16px 0;
     max-width: 100%;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
     background-color: #1e1e1e;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.04);
     transition: box-shadow 0.25s ease;
@@ -1114,11 +1153,15 @@ h4 {
 
 .code-example pre {
     margin: 0;
-    padding: 14px 18px;
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.9rem;
-    line-height: 1.55;
+    padding: 16px 18px;
+    font-family: var(--code-font);
+    font-size: var(--code-size);
+    line-height: var(--code-line);
     color: #d4d4d4;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    tab-size: 4;
 }
 
 .code-example code {
@@ -1126,6 +1169,10 @@ h4 {
     border-radius: 0;
     padding: 0;
     color: #d4d4d4;
+    font-family: inherit;
+    font-size: inherit;
+    white-space: pre;
+    word-break: normal;
 }
 
 /* Унифицированная подсветка (тёмный фон): комментарии — зелёные, остальное интуитивно */
@@ -3081,4 +3128,189 @@ body.dark-theme .ref-section-title {
 body.dark-theme .math-note {
     background: rgba(79, 70, 229, 0.12);
     border-left-color: var(--primary-light);
+}
+
+/* ===== Читаемость кода и таблиц (мобильные + десктоп) ===== */
+.topic-section pre,
+.lesson-content pre,
+.cli-block {
+    font-family: var(--code-font);
+    font-size: var(--code-size);
+    line-height: var(--code-line);
+}
+
+.cli-block {
+    border-radius: 12px;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    word-break: break-word;
+}
+
+.topic-section :not(pre) > code,
+.lesson-content :not(pre) > code,
+.topic-section p code,
+.topic-section li code,
+.topic-section td code,
+.topic-section th code {
+    font-family: var(--code-font);
+    font-size: 0.88em;
+    padding: 0.12em 0.4em;
+    border-radius: 6px;
+    background: rgba(79, 70, 229, 0.09);
+    color: #312e81;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+body.dark-theme .topic-section :not(pre) > code,
+body.dark-theme .lesson-content :not(pre) > code,
+body.dark-theme .topic-section p code,
+body.dark-theme .topic-section li code {
+    background: rgba(99, 102, 241, 0.22);
+    color: #e0e7ff;
+}
+
+/* Горизонтальная прокрутка таблиц */
+.table-scroll {
+    margin: 1rem 0;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    box-shadow: var(--shadow-small);
+    position: relative;
+}
+
+.table-scroll > table,
+.table-scroll .spec-table,
+.table-scroll .ref-table {
+    margin: 0;
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+}
+
+body.dark-theme .table-scroll {
+    background: var(--bg-surface, #1e293b);
+    border-color: rgba(148, 163, 184, 0.2);
+}
+
+.spec-table-wrapper,
+.ref-table-wrapper,
+.operators-cheatsheet {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
+    max-width: 100%;
+}
+
+.spec-table-wrapper {
+    padding: 0;
+    border-radius: 12px;
+}
+
+.spec-table-wrapper .spec-table {
+    margin: 0;
+    width: max-content;
+    min-width: 100%;
+}
+
+.content table {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.content table th,
+.content table td {
+    vertical-align: top;
+    line-height: 1.5;
+}
+
+body.dark-theme .spec-table th,
+body.dark-theme .spec-table td {
+    color: var(--text-color);
+    border-color: rgba(148, 163, 184, 0.2);
+}
+
+body.dark-theme .spec-table th {
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--text-bright);
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 18px 14px;
+    }
+
+    .topic-section,
+    .lesson-content {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .code-example {
+        margin: 14px 0;
+        border-radius: 10px;
+    }
+
+    .code-example pre {
+        padding: 14px 14px;
+        font-size: 0.875rem;
+        line-height: 1.7;
+    }
+
+    .code-example code {
+        font-size: inherit;
+    }
+
+    .table-scroll,
+    .spec-table-wrapper,
+    .ref-table-wrapper {
+        margin: 12px 0;
+        border-radius: 10px;
+    }
+
+    .content table,
+    .spec-table,
+    .ref-table {
+        font-size: 0.875rem;
+    }
+
+    .spec-table th,
+    .spec-table td,
+    .ref-table th,
+    .ref-table td {
+        padding: 10px 12px;
+        min-width: 88px;
+    }
+
+    .operators-cheatsheet {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-title {
+        max-width: calc(100vw - 200px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .code-example pre {
+        font-size: 0.8125rem;
+        line-height: 1.75;
+    }
+
+    .topic-section h2 {
+        font-size: 1.25rem;
+        line-height: 1.35;
+    }
+
+    .topic-section h3 {
+        font-size: 1.1rem;
+    }
 }

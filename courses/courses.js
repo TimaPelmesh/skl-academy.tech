@@ -6,31 +6,138 @@
 (function() {
     const COURSE_ID = (document.body && document.body.getAttribute('data-course')) || 'default';
 
-    // Переключение боковой панели
+    // Переключение боковой панели (кнопка, свайп, затемнение)
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     const content = document.getElementById('content');
+    const MOBILE_SIDEBAR_BP = 991;
+    const SWIPE_EDGE_PX = 28;
+    const SWIPE_OPEN_PX = 56;
+    const SWIPE_CLOSE_PX = 48;
+    let sidebarBackdrop = null;
+    let touchStartX = 0;
+    let touchStartY = 0;
 
-    function initSidebarState() {
-        if (!sidebar || !content) return;
-        if (window.innerWidth > 991) {
-            sidebar.classList.add('active');
-            content.classList.add('sidebar-active');
-        } else {
-            sidebar.classList.remove('active');
-            content.classList.remove('sidebar-active');
+    function isMobileSidebar() {
+        return window.innerWidth <= MOBILE_SIDEBAR_BP;
+    }
+
+    function setMobileSidebarOpen(open) {
+        document.body.classList.toggle('mobile-sidebar-open', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+        if (sidebarBackdrop) {
+            sidebarBackdrop.classList.toggle('active', open);
+            sidebarBackdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
         }
     }
 
-    if (menuToggle && sidebar && content) {
-        initSidebarState();
-        window.addEventListener('resize', initSidebarState);
-        menuToggle.addEventListener('click', function() {
-            menuToggle.classList.toggle('active');
-            sidebar.classList.toggle('active');
-            content.classList.toggle('sidebar-active');
+    function setSidebarOpen(open) {
+        if (!sidebar || !content) return;
+        if (menuToggle) menuToggle.classList.toggle('active', open);
+        sidebar.classList.toggle('active', open);
+        if (isMobileSidebar()) {
+            content.classList.remove('sidebar-active');
+            setMobileSidebarOpen(open);
+        } else {
+            document.body.classList.remove('mobile-sidebar-open');
+            document.body.style.overflow = '';
+            if (sidebarBackdrop) sidebarBackdrop.classList.remove('active');
+            content.classList.toggle('sidebar-active', open);
+        }
+    }
+
+    function openSidebar() {
+        setSidebarOpen(true);
+    }
+
+    function closeSidebar() {
+        setSidebarOpen(false);
+    }
+
+    function toggleSidebar() {
+        if (!sidebar) return;
+        setSidebarOpen(!sidebar.classList.contains('active'));
+    }
+
+    function initSidebarState() {
+        if (!sidebar || !content) return;
+        if (!isMobileSidebar()) {
+            setMobileSidebarOpen(false);
+            sidebar.classList.add('active');
+            content.classList.add('sidebar-active');
+            if (menuToggle) menuToggle.classList.remove('active');
+            return;
+        }
+        closeSidebar();
+    }
+
+    function ensureSidebarBackdrop() {
+        if (!sidebar || sidebarBackdrop) return;
+        var container = sidebar.parentElement;
+        if (!container) return;
+        sidebarBackdrop = document.createElement('div');
+        sidebarBackdrop.className = 'sidebar-backdrop';
+        sidebarBackdrop.setAttribute('aria-hidden', 'true');
+        sidebarBackdrop.addEventListener('click', closeSidebar);
+        container.insertBefore(sidebarBackdrop, sidebar.nextSibling);
+    }
+
+    function initSidebarSwipe() {
+        document.addEventListener('touchstart', function(e) {
+            if (!isMobileSidebar() || !e.touches.length) return;
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        document.addEventListener('touchend', function(e) {
+            if (!isMobileSidebar() || !sidebar || !e.changedTouches.length) return;
+            var touch = e.changedTouches[0];
+            var dx = touch.clientX - touchStartX;
+            var dy = touch.clientY - touchStartY;
+            if (Math.abs(dx) < SWIPE_OPEN_PX || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+
+            if (!sidebar.classList.contains('active')) {
+                if (touchStartX <= SWIPE_EDGE_PX && dx > SWIPE_OPEN_PX) openSidebar();
+                return;
+            }
+            if (dx < -SWIPE_CLOSE_PX) closeSidebar();
+        }, { passive: true });
+    }
+
+    function wrapScrollableTables() {
+        var root = document.getElementById('content');
+        if (!root) return;
+        root.querySelectorAll('table').forEach(function(table) {
+            if (table.closest('.table-scroll, .spec-table-wrapper, .ref-table-wrapper, .operators-cheatsheet')) return;
+            var wrap = document.createElement('div');
+            wrap.className = 'table-scroll';
+            wrap.setAttribute('role', 'region');
+            wrap.setAttribute('aria-label', 'Таблица, прокрутите горизонтально');
+            wrap.setAttribute('tabindex', '0');
+            table.parentNode.insertBefore(wrap, table);
+            wrap.appendChild(table);
         });
     }
+
+    if (menuToggle && sidebar && content) {
+        ensureSidebarBackdrop();
+        initSidebarState();
+        initSidebarSwipe();
+        window.addEventListener('resize', initSidebarState);
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleSidebar();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar.classList.contains('active') && isMobileSidebar()) {
+                closeSidebar();
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        wrapScrollableTables();
+    });
 
     // Раскрытие тем
     function initSidebarInteractions() {
@@ -64,10 +171,8 @@
                     var scrollTarget = getScrollTargetForSection(targetSection);
                     smoothScrollToElement(scrollTarget, offset);
                 }
-                if (sidebar && sidebar.classList.contains('active') && window.innerWidth <= 991) {
-                    if (menuToggle) menuToggle.classList.remove('active');
-                    sidebar.classList.remove('active');
-                    if (content) content.classList.remove('sidebar-active');
+                if (sidebar && sidebar.classList.contains('active') && isMobileSidebar()) {
+                    closeSidebar();
                 }
             });
         });
