@@ -1150,8 +1150,10 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
     initTheme();
     initCodeMirror();
-    loadTemplate('sklHero');
     setupEventListeners();
+    if (!loadFromStorage()) {
+        loadTemplate('sklHero');
+    }
 }
 
 function isDarkTheme() {
@@ -1165,46 +1167,58 @@ function applyCodeMirrorTheme() {
     });
 }
 
-function setPlaygroundTheme(dark) {
-    const root = document.documentElement;
+function applyPlaygroundThemeClasses(dark) {
     document.body.classList.toggle('dark-theme', dark);
-    root.classList.toggle('dark-theme', dark);
-    try {
-        localStorage.setItem(THEME_STORAGE_KEY, dark ? 'dark' : 'light');
-    } catch (e) { /* ignore */ }
+    document.documentElement.classList.toggle('dark-theme', dark);
     applyCodeMirrorTheme();
 }
 
-function togglePlaygroundTheme() {
+function setPlaygroundTheme(dark, persist) {
+    applyPlaygroundThemeClasses(dark);
+    if (persist !== false) {
+        try {
+            localStorage.setItem(THEME_STORAGE_KEY, dark ? 'dark' : 'light');
+        } catch (e) { /* ignore */ }
+    }
+}
+
+function togglePlaygroundTheme(e) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
     const willBeDark = !isDarkTheme();
 
     function apply() {
-        setPlaygroundTheme(willBeDark);
+        setPlaygroundTheme(willBeDark, true);
     }
 
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reducedMotion && typeof document.startViewTransition === 'function') {
-        document.startViewTransition(apply);
-        return;
-    }
+    try {
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!reducedMotion && typeof document.startViewTransition === 'function') {
+            document.startViewTransition(apply);
+            return;
+        }
+    } catch (err) { /* fallback below */ }
 
     document.body.classList.add('theme-switching');
     apply();
     window.setTimeout(() => document.body.classList.remove('theme-switching'), 320);
 }
 
-function initTheme() {
-    let dark = false;
+function readPreferredDarkTheme() {
     try {
         const saved = localStorage.getItem(THEME_STORAGE_KEY);
-        if (saved === 'dark') dark = true;
-        else if (saved === 'light') dark = false;
-        else if (window.matchMedia('(prefers-color-scheme: dark)').matches) dark = true;
-    } catch (e) { /* ignore */ }
-    if (dark) {
-        document.body.classList.add('dark-theme');
-        document.documentElement.classList.add('dark-theme');
+        if (saved === 'dark') return true;
+        if (saved === 'light') return false;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    } catch (e) {
+        return false;
     }
+}
+
+function initTheme() {
+    setPlaygroundTheme(readPreferredDarkTheme(), false);
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
         themeToggle.addEventListener('click', togglePlaygroundTheme);
@@ -1264,6 +1278,10 @@ function initCodeMirror() {
     applyCodeMirrorTheme();
 }
 
+function bindClick(el, handler) {
+    if (el) el.addEventListener('click', handler);
+}
+
 function setupEventListeners() {
     // Tab switching
     tabs.forEach(tab => {
@@ -1274,30 +1292,38 @@ function setupEventListeners() {
     });
 
     // Dropdown
-    dropdownToggle.addEventListener('click', (e) => {
+    bindClick(dropdownToggle, (e) => {
+        e.preventDefault();
         e.stopPropagation();
-        dropdown.classList.toggle('open');
+        if (dropdown) dropdown.classList.toggle('open');
     });
 
     dropdownItems.forEach(item => {
-        item.addEventListener('click', () => {
+        item.addEventListener('click', (e) => {
+            e.stopPropagation();
             const templateName = item.dataset.template;
             loadTemplate(templateName);
-            dropdown.classList.remove('open');
+            if (dropdown) dropdown.classList.remove('open');
         });
     });
 
+    if (dropdownMenu) {
+        dropdownMenu.addEventListener('click', (e) => e.stopPropagation());
+    }
+
     // Close dropdown on outside click
-    document.addEventListener('click', () => {
-        dropdown.classList.remove('open');
+    document.addEventListener('click', (e) => {
+        if (dropdown && !dropdown.contains(e.target)) {
+            dropdown.classList.remove('open');
+        }
     });
 
     // Buttons
-    downloadBtn.addEventListener('click', downloadHTML);
-    refreshBtn.addEventListener('click', updatePreview);
-    newTabBtn.addEventListener('click', openInNewTab);
-    clearConsole.addEventListener('click', () => consoleOutput.innerHTML = '');
-    resetBtn.addEventListener('click', () => {
+    bindClick(downloadBtn, downloadHTML);
+    bindClick(refreshBtn, updatePreview);
+    bindClick(newTabBtn, openInNewTab);
+    bindClick(clearConsole, () => { if (consoleOutput) consoleOutput.innerHTML = ''; });
+    bindClick(resetBtn, () => {
         if (confirm('Сбросить код к шаблону Hero-блок?')) {
             loadTemplate('sklHero');
         }
@@ -1333,9 +1359,6 @@ function setupEventListeners() {
 
     // Setup resizer
     setupResizer();
-
-    // Load from storage
-    loadFromStorage();
 }
 
 function switchTab(tabName) {
@@ -1440,17 +1463,17 @@ function saveToStorage() {
 function loadFromStorage() {
     try {
         const saved = localStorage.getItem('web-playground-code');
-        if (saved) {
-            const data = JSON.parse(saved);
-            if (data.html !== undefined) {
-                htmlEditor.setValue(data.html);
-                cssEditor.setValue(data.css);
-                jsEditor.setValue(data.js);
-                updatePreview();
-            }
-        }
+        if (!saved) return false;
+        const data = JSON.parse(saved);
+        if (data.html === undefined) return false;
+        htmlEditor.setValue(data.html);
+        cssEditor.setValue(data.css || '');
+        jsEditor.setValue(data.js || '');
+        updatePreview();
+        return true;
     } catch (e) {
         console.warn('Could not load from localStorage');
+        return false;
     }
 }
 
@@ -1512,6 +1535,7 @@ function openInNewTab() {
 function setupResizer() {
     const resizer = document.getElementById('resizer');
     const editorsPanel = document.querySelector('.editors-panel');
+    if (!resizer || !editorsPanel) return;
     let isResizing = false;
     let startX, startWidth;
 

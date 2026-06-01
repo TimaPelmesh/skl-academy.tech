@@ -62,18 +62,24 @@ body.theme-switching .mobile-tab {
 
 /* ===== HEADER ===== */
 .header {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
-    justify-content: space-between;
+    gap: 12px;
     padding: 0 20px;
     height: 56px;
     background: var(--bg-primary);
     border-bottom: 1px solid var(--border);
     box-shadow: var(--shadow-sm);
     flex-shrink: 0;
+    position: relative;
+    z-index: 50;
 }
 
 .back-link {
+    justify-self: start;
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -92,10 +98,19 @@ body.theme-switching .mobile-tab {
 }
 
 .title {
+    justify-self: center;
+    text-align: center;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 4px;
     font-size: 17px;
     font-weight: 600;
     color: var(--text-primary);
     letter-spacing: -0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
 }
 
 .title::before {
@@ -110,6 +125,9 @@ body.theme-switching .mobile-tab {
 }
 
 .header-actions {
+    justify-self: end;
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -204,6 +222,7 @@ body.dark-theme .theme-toggle-btn .theme-icon-moon {
 /* ===== CUSTOM DROPDOWN ===== */
 .dropdown {
     position: relative;
+    z-index: 120;
 }
 
 .dropdown-toggle {
@@ -659,8 +678,10 @@ body.dark-theme .theme-toggle-btn .theme-icon-moon {
 
 @media (max-width: 600px) {
     .header {
+        grid-template-columns: auto 1fr auto;
         padding: 0 12px;
         height: 48px;
+        gap: 8px;
     }
 
     .back-link span {

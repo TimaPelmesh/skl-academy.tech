@@ -30,13 +30,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/eclipse.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/darcula.min.css">
     
-    <link rel="stylesheet" href="styles.css?v=20260530-playground-dark">
+    <link rel="stylesheet" href="styles.css?v=20260601-playground-fix">
     <script>
-      try {
-        if (localStorage.getItem('skl-playground-theme') === 'dark') {
-          document.documentElement.classList.add('dark-theme');
-        }
-      } catch (e) {}
+      (function () {
+        try {
+          var saved = localStorage.getItem('skl-playground-theme');
+          var dark = saved === 'dark' ||
+            (saved !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) document.documentElement.classList.add('dark-theme');
+        } catch (e) {}
+      })();
     </script>
 </head>
 <body>
@@ -61,13 +64,13 @@
                     <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd"/>
                 </svg>
             </button>
-            <button class="btn btn-icon" id="resetBtn" title="Сбросить код">
+            <button type="button" class="btn btn-icon" id="resetBtn" title="Сбросить код">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
                     <path d="M3 3v5h5"/>
                 </svg>
             </button>
-            <button class="btn btn-icon" id="downloadBtn" title="Скачать HTML">
+            <button type="button" class="btn btn-icon" id="downloadBtn" title="Скачать HTML">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                     <polyline points="7,10 12,15 17,10"/>
@@ -77,7 +80,7 @@
             
             <!-- Custom Dropdown -->
             <div class="dropdown" id="templateDropdown">
-                <button class="dropdown-toggle" id="dropdownToggle">
+                <button type="button" class="dropdown-toggle" id="dropdownToggle">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
                         <line x1="3" y1="9" x2="21" y2="9"/>
@@ -408,6 +411,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js"></script>
     
-    <script src="script.js"></script>
+    <script src="script.js?v=20260601-playground-fix"></script>
 </body>
 </html>
