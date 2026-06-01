@@ -8,8 +8,8 @@
 index.html          — главная
 about/index.html    — о проекте (/about/)
 courses/            — все курсы (урок: courses/python/01-python-basics/index.html → URL …/01-python-basics/)
-articles/           — статьи SKL Library
-library.html        — библиотека статей
+articles/<slug>/     — статьи SKL Library (articles/<slug>/index.html)
+library/              — библиотека статей (library/index.html)
 sandbox/            — интерактивные тренажёры
 desk/               — рабочий стол с терминалом
 styles.css          — стили главной

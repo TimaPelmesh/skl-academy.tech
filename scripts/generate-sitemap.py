@@ -13,7 +13,7 @@ TODAY = date.today().isoformat()
 STATIC_PAGES = [
     ("/", "1.0", "weekly"),
     ("/about/", "0.8", "monthly"),
-    ("/library.html", "0.9", "weekly"),
+    ("/library/", "0.9", "weekly"),
     ("/desk/", "0.6", "monthly"),
 ]
 
@@ -48,8 +48,9 @@ def collect_course_lessons() -> list[str]:
 def collect_articles() -> list[str]:
     articles = ROOT / "articles"
     paths = []
-    for html in sorted(articles.glob("*.html")):
-        paths.append(f"/articles/{html.name}")
+    for index in sorted(articles.glob("*/index.html")):
+        slug = index.parent.name
+        paths.append(f"/articles/{slug}/")
     return paths
 
 
@@ -60,7 +61,7 @@ def main() -> None:
         entries.append(url_entry(path, prio, freq))
 
     for path in collect_articles():
-        prio = "0.8" if path.endswith(("url-journey.html", "billion-dollar-bugs.html", "reading-code.html")) else "0.7"
+        prio = "0.8" if path.endswith(("url-journey/", "billion-dollar-bugs/", "reading-code/")) else "0.7"
         entries.append(url_entry(path, prio, "monthly"))
 
     for slug, prio, freq in SANDBOX_SLUGS:

@@ -82,9 +82,9 @@ function initDesk() {
       title: 'Инструменты',
       icon: 'fas fa-tools',
       items: [
-        { title: 'Тренажер печати', desc: 'Скорость и точность', url: root + '/sandbox/typing/index.html', icon: 'fas fa-keyboard' },
-        { title: 'Linux команды', desc: 'Интерактивный тренажер', url: root + '/sandbox/linux-commands/index.html', icon: 'fab fa-linux' },
-        { title: 'Архитектура ПК', desc: '3D-модель компьютера', url: root + '/sandbox/pc-architecture/index.html', icon: 'fas fa-desktop' },
+        { title: 'Тренажер печати', desc: 'Скорость и точность', url: root + '/sandbox/typing/', icon: 'fas fa-keyboard' },
+        { title: 'Linux команды', desc: 'Интерактивный тренажер', url: root + '/sandbox/linux-commands/', icon: 'fab fa-linux' },
+        { title: 'Архитектура ПК', desc: '3D-модель компьютера', url: root + '/sandbox/pc-architecture/', icon: 'fas fa-desktop' },
         { title: 'Веб-песочница', desc: 'HTML, CSS, JS', url: root + '/sandbox/web-playground/', icon: 'fas fa-code' }
       ]
     },
@@ -100,13 +100,13 @@ function initDesk() {
       icon: 'fas fa-folder-open',
       type: 'folder',
       items: [
-        { title: 'Что происходит при вводе URL', file: 'url-journey.txt', url: root + '/articles/url-journey.html' },
-        { title: '5 багов за миллионы долларов', file: 'billion-dollar-bugs.txt', url: root + '/articles/billion-dollar-bugs.html' },
-        { title: 'Как читать чужой код', file: 'reading-code.txt', url: root + '/articles/reading-code.html' },
-        { title: 'Docker для начинающих', file: 'docker-basics.txt', url: root + '/articles/docker-basics.html' },
-        { title: 'ИИ для начинающих', file: 'ai-for-beginners.txt', url: root + '/articles/ai-for-beginners.html' },
-        { title: 'Первая программа на Python', file: 'first-python-program.txt', url: root + '/articles/first-python-program.html' },
-        { title: 'Приложение заметок на tkinter', file: 'tkinter-notes-app.txt', url: root + '/articles/tkinter-notes-app.html' }
+        { title: 'Что происходит при вводе URL', file: 'url-journey.txt', url: root + '/articles/url-journey/' },
+        { title: '5 багов за миллионы долларов', file: 'billion-dollar-bugs.txt', url: root + '/articles/billion-dollar-bugs/' },
+        { title: 'Как читать чужой код', file: 'reading-code.txt', url: root + '/articles/reading-code/' },
+        { title: 'Docker для начинающих', file: 'docker-basics.txt', url: root + '/articles/docker-basics/' },
+        { title: 'ИИ для начинающих', file: 'ai-for-beginners.txt', url: root + '/articles/ai-for-beginners/' },
+        { title: 'Первая программа на Python', file: 'first-python-program.txt', url: root + '/articles/first-python-program/' },
+        { title: 'Приложение заметок на tkinter', file: 'tkinter-notes-app.txt', url: root + '/articles/tkinter-notes-app/' }
       ]
     },
     about: {
