@@ -247,7 +247,7 @@ footer .footer-column h4 {
   }
 
   .stat-number {
-    font-size: 1.75rem;
+    font-size: 2.05rem;
     font-weight: 700;
     color: #fff;
     letter-spacing: -0.02em;
@@ -1103,7 +1103,7 @@ footer .footer-column h4 {
   }
 
   .hero-stats-block .stat-number {
-    font-size: 1.65rem;
+    font-size: 2rem;
     margin-bottom: 0.25rem;
   }
 
@@ -1121,9 +1121,14 @@ footer .footer-column h4 {
   }
 }
 
-/* Высота мобильной шапки (для поиска и меню) */
+/* Стеклянная шапка */
 .site-nav {
   --mobile-nav-height: 64px;
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 @media (max-width: 640px) {
@@ -1318,11 +1323,96 @@ body.mobile-search-open .mobile-search-toggle-btn {
   transform: translateY(-5px) rotate(-45deg);
 }
 
-/* UFO и иконки в hero отключены */
+/* UFO и старые иконки в hero отключены */
 .ufo-hero,
 .ufo-hero-2,
 .course-icons-left,
 .course-icons-right { display: none !important; }
+
+/* Стеклянные иконки курсов в hero — только десктоп */
+.hero-floating-icons {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .hero-floating-icons {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero-glass-icon {
+    --shift-x: 0px;
+    --icon-rotate: 0deg;
+    --icon-opacity: 0.88;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.11);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    opacity: var(--icon-opacity, 0.88);
+    transform: translateX(var(--shift-x, 0px)) rotate(var(--icon-rotate, 0deg));
+  }
+
+  .hero-glass-icon i { line-height: 1; }
+
+  .hero-glass-icon--m  { width: 44px; height: 44px; font-size: 1rem;   border-radius: 12px; }
+  .hero-glass-icon--l  { width: 52px; height: 52px; font-size: 1.15rem; border-radius: 14px; }
+  .hero-glass-icon--xl { width: 60px; height: 60px; font-size: 1.35rem; border-radius: 15px; }
+  .hero-glass-icon--xxl { width: 68px; height: 68px; font-size: 1.55rem; border-radius: 16px; }
+
+  .hero-glass-icon--peek {
+    --icon-opacity: 0.72;
+    z-index: 1;
+  }
+
+  .hero-glass-icon--toward {
+    --icon-opacity: 0.92;
+    z-index: 2;
+  }
+
+  .hero-glass-icon--toward.hero-glass-icon--left  { --shift-x: 18px; }
+  .hero-glass-icon--toward.hero-glass-icon--right { --shift-x: -18px; }
+
+  /* Позиции: 3 слева — чуть выглядывают, не уезжают за экран */
+  .hero-glass-icon--l1 { top: 12%; left: -18px; --icon-rotate: -10deg; }
+  .hero-glass-icon--l2 { top: 42%; left: 6px;   --icon-rotate: 7deg; }
+  .hero-glass-icon--l3 { top: 72%; left: -22px; --icon-rotate: -8deg; }
+
+  /* Позиции: 4 справа */
+  .hero-glass-icon--r1 { top: 32%; right: 10px;  --icon-rotate: 9deg; }
+  .hero-glass-icon--r2 { top: 10%; right: -20px; --icon-rotate: -9deg; }
+  .hero-glass-icon--r3 { top: 58%; right: 4px;   --icon-rotate: 6deg; }
+  .hero-glass-icon--r4 { top: 82%; right: -16px; --icon-rotate: -7deg; }
+}
+
+@media (min-width: 1280px) {
+  .hero-glass-icon--m  { width: 48px; height: 48px; font-size: 1.05rem; }
+  .hero-glass-icon--l  { width: 56px; height: 56px; font-size: 1.22rem; }
+  .hero-glass-icon--xl { width: 64px; height: 64px; font-size: 1.42rem; }
+  .hero-glass-icon--xxl { width: 72px; height: 72px; font-size: 1.62rem; }
+
+  .hero-glass-icon--toward.hero-glass-icon--left  { --shift-x: 22px; }
+  .hero-glass-icon--toward.hero-glass-icon--right { --shift-x: -22px; }
+
+  .hero-glass-icon--l1 { top: 10%; left: -14px; }
+  .hero-glass-icon--l2 { top: 40%; left: 10px; }
+  .hero-glass-icon--l3 { top: 70%; left: -18px; }
+
+  .hero-glass-icon--r1 { top: 30%; right: 14px; }
+  .hero-glass-icon--r2 { top: 8%;  right: -16px; }
+  .hero-glass-icon--r3 { top: 56%; right: 8px; }
+  .hero-glass-icon--r4 { top: 80%; right: -12px; }
+}
 
 /* Декоративные иконки с эффектом высыпания (только десктоп) */
 .hero-icons-cascade {
@@ -1739,11 +1829,11 @@ body.mobile-search-open .mobile-search-toggle-btn {
   }
   
   .hero-stats-block .stat-number {
-    font-size: 1.7rem;
+    font-size: 2.1rem;
   }
   
   .hero-stats-block .stat-label {
-    font-size: 0.68rem;
+    font-size: 0.72rem;
   }
 
   .modal-content {
@@ -1789,11 +1879,11 @@ body.mobile-search-open .mobile-search-toggle-btn {
   }
   
   .hero-stats-block .stat-number {
-    font-size: 1.5rem;
+    font-size: 1.9rem;
   }
   
   .hero-stats-block .stat-label {
-    font-size: 0.62rem;
+    font-size: 0.65rem;
   }
 
   /* Smaller floating icons on very small screens */
@@ -2631,12 +2721,13 @@ body.mobile-search-open {
 /* === Accessibility: Reduced Motion === */
 @media (prefers-reduced-motion: reduce) {
   .tech-icon-float,
+  .hero-glass-icon,
   .stat-block,
   .hero-title,
   .hero-layout {
     animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
+    opacity: var(--icon-opacity, 0.9) !important;
+    transform: translateX(var(--shift-x, 0px)) rotate(var(--icon-rotate, 0deg)) !important;
   }
 
   .gradient-bg::after {

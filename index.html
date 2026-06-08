@@ -142,7 +142,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Critical site styles first to reduce FOUC -->
-    <link rel="stylesheet" href="styles.css?v=20260602-home-menu-text">
+    <link rel="stylesheet" href="styles.css?v=20260608-hero-icons-desktop">
 
   <!-- Preconnect for fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -156,7 +156,7 @@
 </head>
 <body class="font-sans">
   <!-- Navigation -->
-  <nav class="site-nav bg-white backdrop-blur-sm shadow-sm sticky top-0 z-50">
+  <nav class="site-nav sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20 items-center">
         <!-- Логотип (слева на десктопе, скрыт на мобильных) -->
@@ -269,6 +269,18 @@
   <!-- Hero Section -->
   <div class="gradient-bg text-white pt-4 relative overflow-hidden">
     <div id="hero-webgl" aria-hidden="true"></div>
+
+    <div class="hero-floating-icons" aria-hidden="true">
+      <!-- 3 слева -->
+      <div class="hero-glass-icon hero-glass-icon--left hero-glass-icon--m hero-glass-icon--peek hero-glass-icon--l1"><i class="fas fa-network-wired"></i></div>
+      <div class="hero-glass-icon hero-glass-icon--left hero-glass-icon--l hero-glass-icon--toward hero-glass-icon--l2"><i class="fab fa-git-alt"></i></div>
+      <div class="hero-glass-icon hero-glass-icon--left hero-glass-icon--xl hero-glass-icon--peek hero-glass-icon--l3"><i class="fab fa-linux"></i></div>
+      <!-- 4 справа -->
+      <div class="hero-glass-icon hero-glass-icon--right hero-glass-icon--xxl hero-glass-icon--toward hero-glass-icon--r1"><i class="fab fa-python"></i></div>
+      <div class="hero-glass-icon hero-glass-icon--right hero-glass-icon--l hero-glass-icon--peek hero-glass-icon--r2"><i class="fab fa-html5"></i></div>
+      <div class="hero-glass-icon hero-glass-icon--right hero-glass-icon--xl hero-glass-icon--toward hero-glass-icon--r3"><i class="fab fa-windows"></i></div>
+      <div class="hero-glass-icon hero-glass-icon--right hero-glass-icon--m hero-glass-icon--peek hero-glass-icon--r4"><i class="fas fa-language"></i></div>
+    </div>
     
     <div class="max-w-7xl mx-auto py-6 px-4 sm:py-8 sm:px-6 lg:px-8">
       <div class="hero-layout">
